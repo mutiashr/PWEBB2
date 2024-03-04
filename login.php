@@ -3,25 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./signUp.css">
-    <title>Bellamadu</title>
-    <style>
-        .form{
-            width: 300px;
-            height: 290px;
-        }
-    </style>
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="form">
-        <div class="title">
-            <p>Login Admin</p>
-        </div>
-        <form action="" method="post">
-            <input type="text" name="Username" placeholder="Name">
-            <input type="text" name="Password" placeholder="Password">
-            <input type="submit" value="Login" name="Login_button">
+<body id="bg-login">
+    <div class="box-login">
+        <h2>Login</h2>
+        <form method="post">
+            <input type="text" name="user" placeholder="Username" class="input-control">
+            <input type="password" name="pass" placeholder="Password" class="input-control">
+            <input type="submit" name="submit" value="Login" class="lgn">
         </form>
+        <?php
+if(isset($_POST['submit'])){
+    session_start();
+    include 'db.php';
+    
+    $user = $_POST['user'];
+    $pass = $_POST['pass'];
+
+    $cek = mysqli_query($conn, "SELECT * FROM tb_admin WHERE username = '$user' AND password = '$pass'");
+    if(mysqli_num_rows($cek) > 0){
+        $d = mysqli_fetch_object($cek);
+        $_SESSION['s_login'] = true;
+        $_SESSION['a_global'] = $d;
+        $_SESSION['id'] = $d->admin_id;
+        echo '<script>window.location="dashboard.php"</script>';
+    } else {
+        echo '<script>alert("Username atau password Anda salah!")</script>';
+    }
+}
+?>
     </div>
 </body>
 </html>
