@@ -1,12 +1,14 @@
 <?php
-$hostname = 'localhost';
-$username = 'root';
-$password = '';
-$dbname   = 'db_butik123';
+$host = "localhost"; // Ganti dengan nama host Anda
+$user = "root"; // Ganti dengan nama pengguna database Anda
+$pass = ""; // Ganti dengan kata sandi database Anda
+$db   = "butik_bellamadu"; // Ganti dengan nama database Anda
 
-$conn = mysqli_connect($hostname, $username, $password, $dbname);
+// Membuat koneksi ke database
+$conn = mysqli_connect($host, $user, $pass, $db);
 
+// Periksa koneksi
 if (!$conn) {
-    die('Gagal terhubung ke database: ' . mysqli_connect_error());
+    die("Koneksi gagal: " . mysqli_connect_error());
 }
 ?>
